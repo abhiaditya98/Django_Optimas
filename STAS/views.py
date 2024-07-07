@@ -36,6 +36,20 @@ def PageLoaded(request,page):
           return HttpResponseNotFound(f"The {e} application is yet to build ")      
 '''Without the template default page to be loaded'''       
 def PageLoaded(request,page):
+    # for key,val in applications.items():
+    #     if page==key:
+    #         context={
+    #             "applications":applications[key]
+    #         }
+    try:
+        context={
+            "val":applications[page],
+            "key":page
+        }
+        return render(request,"STAS/stas.html",context)
+    except:
+        return HttpResponse(f"The provided {page} is not supported")    
+    return render(request,"STAS/stas.html",context)
     for key,values in applications.items():
         # return HttpResponse(key)
         if page==key:
