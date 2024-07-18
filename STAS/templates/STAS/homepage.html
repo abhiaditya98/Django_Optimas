@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimas</title>
-</head>
-<body>
-  <h1>Welcome to the Home Page</h1>
+{% extends "base.html" %}
 
+{% block title %}{% endblock  %}
+  
+{% block list_of_applications %}  
   <ul>
     {% for key, val in applications.items %}
       <li>
         <a href="{% url 'applications' key %}">{{ key }}</a> 
+        {% comment %} here we are adding the url tag where the syntax is like url and then redirect then the arguments to it ex:- url 'redirect url' args {% endcomment %}
       </li>
     {% endfor %}
   </ul>
+{% endblock  %}
 
-</body>
-</html>

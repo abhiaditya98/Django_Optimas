@@ -4,8 +4,9 @@ from django.urls import reverse
 # Create your views here.
 
 applications={
-     "recruiter":"This is the Recruiter page",
+     "Recruiter":"This is the Recruiter page",
      "HM":"This is the HM Page",
+     "OS Recruitment":None
 }
 def index(request):
     return HttpResponse("This is 1st django application which I'm created its looking pretty cool...\
@@ -18,7 +19,9 @@ def PageLoadedIsNumber(request,page):
             url_app=reverse("applications",args=[page])
         return HttpResponseRedirect(url_app) 
 
-'''This is using the render method'''
+
+'''This is using the render method Sample
+
 def PageLoaded(request,page):
      try:
         app_name=page
@@ -29,12 +32,13 @@ def PageLoaded(request,page):
         return render(request,"STAS/stas.html",{
              "app_page":applications[app_name]
         })
-        '''Note to myself here we have given the app name inside the templates folder cause django load all the templates in folder if any other app has the same html or template file the it will be crashed so it's best practise to have the app name included in it.'''
+        # Note to myself here we have given the app name inside the templates folder cause django load all the templates in folder if any other app has the same html or template file the it will be crashed so it's best practise to have the app name included in it
      
      
      except Exception as e:
-          return HttpResponseNotFound(f"The {e} application is yet to build ")      
-'''Without the template default page to be loaded'''       
+          return HttpResponseNotFound(f"The {e} application is yet to build ")  
+'''    
+      
 def PageLoaded(request,page):
     # for key,val in applications.items():
     #     if page==key:
@@ -47,17 +51,20 @@ def PageLoaded(request,page):
             "key":page
         }
         return render(request,"STAS/stas.html",context)
-    except:
-        return HttpResponse(f"The provided {page} is not supported")    
-    return render(request,"STAS/stas.html",context)
-    for key,values in applications.items():
-        # return HttpResponse(key)
-        if page==key:
-            return HttpResponse(applications[key]) 
-        elif page==key:
-            return HttpResponse(applications[key]) 
-    else:
-        return HttpResponseNotFound(f"The exception {page} ")    
+    except Exception as e:
+        context={"val":e}
+        return HttpResponse(f"The provided {e} is not supported")    
+    
+    # return render(request,"STAS/stas.html",context)    
+'''Without the template default page to be loaded''' 
+    # for key,values in applications.items():
+    #     # return HttpResponse(key)
+    #     if page==key:
+    #         return HttpResponse(applications[key]) 
+    #     elif page==key:
+    #         return HttpResponse(applications[key]) 
+    # else:
+    #     return HttpResponseNotFound(f"The exception {page} ")    
 '''Using the HTML Template'''
 # def PageLoaded(request,page):
 #      sel=request.path.strip()
@@ -80,6 +87,7 @@ def PageLoaded(request,page):
     
             
 #     return HttpResponse(response_data)
+
 '''Using the html template'''
           
 def HomePage(request):

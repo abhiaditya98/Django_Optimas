@@ -58,7 +58,9 @@ ROOT_URLCONF = 'Optimas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],#this is used to declare the template folder which is outside the any app
+        'DIRS': [
+            BASE_DIR / "templates"
+        ],#this is used to declare the template folder which is outside the any app
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

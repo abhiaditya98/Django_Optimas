@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimas</title>
+  <style>
+  .center {
+    margin: auto;
+    width: 51%;
+ 
+    padding-left: 180px;
+}
+</style>
+  <title>{{key}}</title>
+
 </head>
 <body>
-    <h1>Welcome to the {{key}} website</h1>
-    <h6>{{val}}</h6>
+  <div class ="center">
+    <h3>Welcome to the {{key| title}} website</h3>
+    
+  </div>
+  {% comment %} {{ val }} {% endcomment %}
+<p> {% include "STAS/includes/include.html" %}</p>
+
+
+  {%if val  %}
+
+    <p>{{ val }}</p>
+  {% else %}
+    <p>The website yet to build!</p>
+  {% endif%}
 </body>
 </html>
