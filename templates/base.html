@@ -1,12 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Optimas{% endblock  %} </title>
+  {% block loading_header_css %}{% endblock loading_header_css %}
+  {% block loading_css%}{% endblock %}
+  <header>
+  <h>Welcome to Home Page</h1>
+  </header>
+  <link rel="stylesheet" href="{% static "global_css.css" %}">
 </head>
 
 <body>
-    {% block body_heading %}<h1>Welcome to the Home Page </h1>{% endblock %}
+    {% comment %} {% block body_heading %}<h1>Welcome to the Home Page </h1>{% endblock %} {% endcomment %}
     {% block list_of_applications %}{% endblock  %}
 </body>

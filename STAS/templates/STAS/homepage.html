@@ -1,8 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{% endblock  %}
-  
+
+{% block loading_header_css %}
+<link rel ="stylesheet" href="{% static "/STAS/header.css"%}">
+{% endblock loading_header_css %}
+
+
+{% block loading_css %}
+<link rel ="stylesheet" href="{% static "/STAS/stas.css"%}">
+{% endblock loading_css %}
+
+
+
+
 {% block list_of_applications %}  
+  
   <ul>
     {% for key, val in applications.items %}
       <li>

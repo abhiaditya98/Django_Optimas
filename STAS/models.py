@@ -15,7 +15,10 @@ class RecruitmentMaster(models.Model):
         MinLengthValidator(10),
         MaxLengthValidator(13),
         RegexValidator(r'^\+91\d{10}$')
-    ])
+    
+    ]
+    )
+    profile_source = models.CharField( max_length=256)
 
 
 

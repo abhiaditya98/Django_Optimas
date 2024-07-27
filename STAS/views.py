@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseNotFound,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseNotFound,HttpResponseRedirect,Http404
 from django.urls import reverse
+from django.template.loader import render_to_string
 # Create your views here.
 
 applications={
@@ -51,11 +52,19 @@ def PageLoaded(request,page):
             "key":page
         }
         return render(request,"STAS/stas.html",context)
-    except Exception as e:
-        context={"val":e}
-        return HttpResponse(f"The provided {e} is not supported")    
-    
-    # return render(request,"STAS/stas.html",context)    
+    except:
+         raise Http404()
+"""This is and normal way of implementiong the logic"""
+# except Exception as e:
+#     context={"val":e}
+#     return HttpResponse(f"The provided {e} is not supported") 
+"""In this way we can use the 404.html to view but this is not the correct way of sending cauese it gives the 200 status"""   
+# except :
+#      responsedata=render_to_string("404.html")
+#      return HttpResponse(responsedata)
+#     # return Http404()
+
+# return render(request,"STAS/stas.html",context)    
 '''Without the template default page to be loaded''' 
     # for key,values in applications.items():
     #     # return HttpResponse(key)

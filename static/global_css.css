@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600;700;800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
+html{
+    font-family: "Hind", sans-serif;
+    font-optical-sizing: 300;
+    font-style: normal;
+    background-color: #EEEEEE;
+}
+
+body{
+    margin: 0%;
+}
+
