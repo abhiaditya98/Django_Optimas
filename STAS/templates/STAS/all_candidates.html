@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+{% load static %}
+<link rel ="stylesheet" href="{% static "/STAS/all_candidates.css"%}">
+
+  <title>Candidates</title>
+
+</head>
+<body>
+  <div class ="center">
+    <h3>All Candidates List</h3>
+    
+  </div>
+  {% comment %} {{ val }} {% endcomment %}
+
+  <p> {% include "STAS/includes/include.html" %}</p>
+
+  {% for candidate  in  candidates %}
+    <ul>
+        <li>
+            {% comment %} <a href ="{% url 'candidate_detail' candidate.id %}">{{ candidate.candidate_name}}</a> {% endcomment %} 
+            <a href ="{{ candidate.get_absolute_url }}">{{ candidate.candidate_name}}</a>
+            {% comment %} {{candidate.candidate_name}} ({{candidate.mobile_number}}) {% endcomment %}
+        </li>
+    </ul>
+  {% endfor %}
+
+</body>
+</html>

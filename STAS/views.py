@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,HttpResponseNotFound,HttpResponseRedirect,Http404
 from django.urls import reverse
 from django.template.loader import render_to_string
+from .models import RecruitmentMaster 
+
 # Create your views here.
 
 applications={
@@ -102,3 +104,23 @@ def PageLoaded(request,page):
 def HomePage(request):
     context = {'applications': applications}
     return render(request, "STAS/homepage.html", context)
+
+
+def all_candidates(request):
+    #  return HttpResponse("Loaded ")
+    # candidates_list=RecruitmentMaster.objects.values("candidate_name","mobile_number","id").order_by("candidate_name").distinct()
+    candidates_list=RecruitmentMaster.objects.all().order_by("-candidate_name")
+    
+    return render(request,"STAS/all_candidates.html",{
+        "candidates":candidates_list
+    })
+
+def candidate_details(request,slug):
+    candidate=get_object_or_404(RecruitmentMaster ,slug=slug)
+    # candidates_list=RecruitmentMaster.objects.all()
+    return render(request,"STAS/candidate_details.html",{
+          "candidates":candidate.candidate_name,
+          "experience":candidate.experience,
+          "mobile_number":candidate.mobile_number,
+          "profile_source":candidate.profile_source,
+     })

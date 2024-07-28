@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel ="stylesheet" href="{% static "/STAS/all_candidates.css"%}">
+
+<p> {% include "STAS/includes/include.html" %}</p>
+<p> {% include "STAS/includes/all_candidates_includes.html"%}</p>
+<table >
+  <tr>
+    <th>Candidate Name</th>
+    <th>Phone Number</th>
+  </tr>
+
+  <tr>
+  <td>
+    {{ candidates}}</a>
+  </td>
+  <td>{{ mobile_number }}</td>
+  </tr>
+
+</table> 
