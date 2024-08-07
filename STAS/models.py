@@ -21,6 +21,11 @@ class Test(models.Model):
     id=models.IntegerField
     email=models.CharField(max_length=100,default="test@Example.com")
 
+class VendorName(models.Model):
+    vendor_name=models.CharField(max_length=256)
+    vendor_email1=models.CharField(max_length=256,null=True)
+    vendor_email2=models.CharField(max_length=256,null=True)
+
 class RecruitmentMaster(models.Model):
     candidate_name=models.CharField(max_length=256)
     experience=models.IntegerField(max_length=10)
@@ -32,7 +37,8 @@ class RecruitmentMaster(models.Model):
     ]
     )
     profile_source = models.CharField( max_length=256,blank=True)
-    slug=models.SlugField(default="",null=False,db_index=True)
+    vendor_name=models.ForeignKey(VendorName,on_delete=models.SET_NULL,null=True,related_name="candidate")
+    slug=models.SlugField(default="",null=False,db_index=True,editable=False)
 
     def save(self,*args, **kwargs): 
         self.slug=slugify(self.candidate_name)
@@ -43,7 +49,7 @@ class RecruitmentMaster(models.Model):
     
 
     def __str__(self) -> str:
-        return f"candidate_name={self.candidate_name} \t mobile_number=  {self.mobile_number}\n"
+        return f"{self.candidate_name} ( {self.mobile_number})\n"
 
 
 

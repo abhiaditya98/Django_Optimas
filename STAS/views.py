@@ -109,7 +109,7 @@ def HomePage(request):
 def all_candidates(request):
     #  return HttpResponse("Loaded ")
     # candidates_list=RecruitmentMaster.objects.values("candidate_name","mobile_number","id").order_by("candidate_name").distinct()
-    candidates_list=RecruitmentMaster.objects.all().order_by("-candidate_name")
+    candidates_list=RecruitmentMaster.objects.all().order_by("id")
     
     return render(request,"STAS/all_candidates.html",{
         "candidates":candidates_list
