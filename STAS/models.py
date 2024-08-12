@@ -26,6 +26,9 @@ class VendorName(models.Model):
     vendor_email1=models.CharField(max_length=256,null=True)
     vendor_email2=models.CharField(max_length=256,null=True)
 
+    def __str__(self):
+        return f"{self.vendor_name}"
+
 class RecruitmentMaster(models.Model):
     candidate_name=models.CharField(max_length=256)
     experience=models.IntegerField(max_length=10)
@@ -48,8 +51,8 @@ class RecruitmentMaster(models.Model):
         return reverse("candidate_detail", args=[self.slug])
     
 
-    def __str__(self) -> str:
-        return f"{self.candidate_name} ( {self.mobile_number})\n"
+    # def __str__(self) -> str:
+    #     return f"{self.candidate_name} ( {self.mobile_number})\n"
 
 
 

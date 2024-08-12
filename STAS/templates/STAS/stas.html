@@ -1,18 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  .center {
-    margin: auto;
-    width: 51%;
- 
-    padding-left: 180px;
-}
-</style>
-  <title>{{key}}</title>
+  {% load static %}
+  <link rel ="stylesheet" href="{% static "/STAS/form.css"%}">
+  {% comment %} <link rel ="stylesheet" href="{% static "/STAS/stas.css"%}"> {% endcomment %}
 
+  <title>{{key}}</title>
 </head>
 <body>
   <div class ="center">
@@ -23,12 +20,52 @@
 <p> {% include "STAS/includes/include.html" %}</p>
 <p> {% include "STAS/includes/all_candidates_includes.html"%}</p>
 
+
+{% comment %} 
   {%if val  %}
 
     <p>{{ val }}</p>
+
+    {% if val =="Recruiter"  %}
+      <p>Adding a profile</p>
+    {% endif %} 
   {% else %}
     <p>The website yet to build!</p>
-  {% endif%}
+  {% endif%} {% endcomment %}
+
+  {% if val %}
+
+  <p>{{ val }}</p>
+
+  {% if key == "Recruiter" %}
+      <form action="/optimas/Recruiter/thank-you" method="POST">
+      {% comment %} <form action="/optimas/Recruiter/thank-you" method="POST"> {% endcomment %}
+        {% csrf_token %}
+        <label for ="candidatename">Candidate Name</label>
+        <input id = "candidatename"  name="Candidate Name" type = "text" style="padding-left:10px">
+        <br>
+        {% comment %} <label for ="experience">Experience</label>
+        <input id = "experience"  name="experience" type = "text">
+        <br>
+        <label for ="profilesource">Profile Source</label>
+        <input id = "profilesource"  name="profilesource" type = "text">
+        <br>
+        <label for ="mobilenumber">Mobile Number</label>
+        <input id = "mobilenumber"  name="mobilenumber" type = "text">
+        <br>
+        <label for ="emailid">Email ID</label>
+        <input id = "emailid"  name="emailid" type = "text"> {% endcomment %}
+        
+        <br>
+        <p></p>
+        <br>
+        <button type = "submit">Submit</button>
+      </form>
+      <p>{{ candidate_data }}
+  {% endif %} 
+{% else %}
+  <p>The website yet to build!</p>
+{% endif %}
 
 
 </body>

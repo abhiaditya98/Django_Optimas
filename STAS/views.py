@@ -54,8 +54,9 @@ def PageLoaded(request,page):
             "key":page
         }
         return render(request,"STAS/stas.html",context)
-    except:
-         raise Http404()
+    except Exception as e:
+         return HttpResponse(e)
+        #  raise Http404()
 """This is and normal way of implementiong the logic"""
 # except Exception as e:
 #     context={"val":e}
@@ -124,3 +125,28 @@ def candidate_details(request,slug):
           "mobile_number":candidate.mobile_number,
           "profile_source":candidate.profile_source,
      })
+candidate_data=""
+def candidate_details_submitted(request):
+    
+    if request.method == "POST":
+        candidate_data=request.POST["Candidate Name"]
+        print(candidate_data)
+        return HttpResponseRedirect("/optimas/Recruiter/thank-you")
+        # return HttpResponse(candidate_data)
+    else:
+        try:
+            context={
+                "val":applications["Recruiter"],
+                "key":"Recruiter"
+            }
+            return render(request,"STAS/stas.html",context)
+        except Exception as e:
+            return HttpResponse(e)
+    
+def thank_you(request):
+     
+    # print(requst)
+    return render(request,"STAS/thank-you.html",{
+        "candidate_data":candidate_data
+    })
+    

@@ -37,3 +37,39 @@ ul {
     color: #5e04ef;
   }
   
+form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+button   
+ {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor:   
+ pointer;
+}
+center {
+  margin: auto;
+  width: 51%;
+
+  padding-left: 180px;
+}

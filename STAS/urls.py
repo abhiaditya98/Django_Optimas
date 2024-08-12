@@ -6,7 +6,9 @@ urlpatterns=[
     path("all_candidates",views.all_candidates,name="all_candidates_url"),
     path("all_candidates/<slug:slug>",views.candidate_details, name="candidate_detail"),
     path("<int:page>",views.PageLoadedIsNumber),
-    path("<str:page>",views.PageLoaded,name="applications"),
+    path("Recruiter/",views.candidate_details_submitted),
+    # path("<str:page>",views.PageLoaded,name="applications"),
+    path("Recruiter/thank-you",views.thank_you),
     
     
     # path("stas/1/",views.page)
