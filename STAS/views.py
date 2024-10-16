@@ -1,9 +1,10 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse,HttpResponseNotFound,HttpResponseRedirect,Http404
 from django.urls import reverse
 from django.template.loader import render_to_string
-from .models import RecruitmentMaster 
-
+from .models import RecruitmentMaster,SubmittedRecords,ExistingRecords
+from .forms import RecordForm
+from django.contrib import messages
 # Create your views here.
 
 applications={
@@ -125,7 +126,8 @@ def candidate_details(request,slug):
           "mobile_number":candidate.mobile_number,
           "profile_source":candidate.profile_source,
      })
-candidate_data=""
+
+# candidate_data=""
 def candidate_details_submitted(request):
     
     if request.method == "POST":
@@ -146,7 +148,53 @@ def candidate_details_submitted(request):
 def thank_you(request):
      
     # print(requst)
-    return render(request,"STAS/thank-you.html",{
-        "candidate_data":candidate_data
-    })
+    return render(request,"STAS/thank-you.html")
     
+
+
+
+def record_form_view(request):
+    if request.method == 'POST':
+        form = RecordForm(request.POST)
+        if form.is_valid():
+            # Get form data
+            field1 = form.cleaned_data['field1']
+            location = form.cleaned_data['location']
+
+            if not ExistingRecords.objects.filter(field1=field1).exists():
+                messages.error(request,"Field1 value does not exist in the database.")
+                # Save the submitted data to the SubmittedRecords table
+            else:
+                if SubmittedRecords.objects.filter(field1=field1).exists():
+                    resp1=SubmittedRecords.objects.filter(field1=field1).update(location=location)
+                    print(f"updated----------------------{resp1}")
+                else:
+                    resp=SubmittedRecords.objects.create(field1=field1,location=location)
+                    print(f"inserted---------------------{resp}")
+
+                form = RecordForm(initial={'location': location})
+                # Display success message
+                messages.success(request, f"Record for {field1} saved successfully!")
+
+            # Reset the form (clear the fields) after successful submission
+            form = RecordForm()
+
+        else:
+            # Show error message if the form is not valid
+            messages.error(request, "There was an error in your submission. Please try again.")
+
+    else:
+        form = RecordForm()
+
+    # Render the form with messages if any
+    return render(request, 'AssetVerification/assetverification.html', {'form': form})
+# def record_form_view(request):
+#     if request.method == 'POST':
+#         form = RecordForm(request.POST)
+#         if form.is_valid():
+
+#             form.save()
+#             return render(request, 'AssetVerification/assetverification.html', {'message': 'Data saved successfully'})
+#     else:
+#         form = RecordForm()
+#     return render(request, 'form.html', {'form': form})

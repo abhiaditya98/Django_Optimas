@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Form</title>
+</head>
+<body>
+
+    <h1>Submit Record</h1>
+
+    <!-- Form -->
+    <form method="POST" id="recordForm">
+        {% csrf_token %}
+        
+        <!-- Field1 Input (ID) -->
+        <label for="id_field1">{{ form.field1.label }}</label>
+        {{ form.field1 }}
+        <br>
+
+        <!-- Location Input -->
+        <label for="id_location">{{ form.location.label }}</label>
+        {{ form.location }}
+
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Message Handling -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Move the script to the bottom, just before closing body tag -->
+    <script>
+        // JavaScript to handle focus shift when field1 length is between 9 and 15
+        document.addEventListener('DOMContentLoaded', function() {
+            const field1 = document.getElementById('field1');
+            const location = document.getElementById('location');
+
+            // Check if there's a stored location value in localStorage and set it back
+            const storedLocation = localStorage.getItem('location');
+            if (storedLocation) {
+                location.value = storedLocation;
+            }
+
+            // Check if field1 and location exist in the DOM
+            if (field1 && location) {
+                // Event listener to move focus to location when length of field1 is between 9 and 15
+                field1.addEventListener('input', function() {
+                    if (field1.value.length > 9 && field1.value.length < 15) {
+                        location.focus();
+                    }
+                });
+            } else {
+                console.error("Could not find the input fields.");
+            }
+
+            // Save location value to localStorage before form submission
+            const form = document.getElementById('recordForm');
+            form.addEventListener('submit', function() {
+                localStorage.setItem('location', location.value);
+            });
+        });
+    </script>
+
+</body>
+</html>

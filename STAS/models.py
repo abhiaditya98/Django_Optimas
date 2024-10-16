@@ -56,3 +56,15 @@ class RecruitmentMaster(models.Model):
 
 
 
+class ExistingRecords(models.Model):
+    field1 = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.field1
+
+class SubmittedRecords(models.Model):
+    field1 = models.CharField(max_length=15)
+    location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.field1} - {self.location}'
